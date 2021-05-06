@@ -8,3 +8,11 @@
   font-size: 2.4rem;
   font-weight: bold;
 }
+
+.ideas {
+  margin-top: 30px;
+}
+
+.ideas > div {
+  margin-top: 10px;
+}

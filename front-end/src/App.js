@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import Idea from './components/idea/Idea';
 import WelcomeContainer from './components/welcome-container/WelcomeContainer';
 
 import './App.css';
@@ -43,6 +44,7 @@ function App() {
     !loading ?
       <div className="app">
         <WelcomeContainer/>
+        <Ideas ideas={ideas}/>
       </div> :
       <div>loading...</div>
   );
@@ -82,6 +84,30 @@ async function incrementReferralCount(userIdHash) {
      */
     throw error;
   }
+}
+
+/******************************
+ * WRAPPER COMPONENTS
+ ******************************/
+
+/**
+ * @description Component used to keep main component clean
+ * @param {Object} props
+ * @returns {Object}
+ */
+function Ideas(props) {
+  return (
+    <div className="ideas">
+      {props.ideas.map(idea => (
+        <Idea
+          context={idea.context}
+          description={idea.description}
+          title={idea.title}
+          key={idea.id}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default App;
