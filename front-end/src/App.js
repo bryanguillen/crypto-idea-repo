@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import WelcomeContainer from './components/welcome-container/WelcomeContainer';
+
+import './App.css';
+
 function App() {
   const [ideas, setIdeas] = useState([]);
   const [lastIdeaSeen, setLastIdeaSeen] = useState('null');
@@ -36,7 +40,11 @@ function App() {
   }, []);
 
   return (
-    <div>Hello world</div>
+    !loading ?
+      <div className="app">
+        <WelcomeContainer/>
+      </div> :
+      <div>loading...</div>
   );
 }
 
