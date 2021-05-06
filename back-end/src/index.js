@@ -9,6 +9,8 @@ const morgan = require('morgan');
 const path = require('path');
 const helmet = require('helmet');
 
+const ideaRoutes = require('./endpoints/idea/idea.routes');
+
 const app = express();
 const PORT = process.env.NODE_ENV === 'production' ? 3000 : 3001;
 
@@ -40,6 +42,9 @@ app.use(
 
 // setup the logger
 app.use(morgan('combined', { stream: accessLogStream }));
+
+// routes
+app.use(ideaRoutes);
 
 // catch all error handler
 app.use((error, req, res, next) => {
