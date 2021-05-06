@@ -9,7 +9,11 @@ function App() {
    * @description Effect for interacting with the server
    */
   useEffect(() => {
-    getIdeas();
+    const executeEffect = async () => {
+      await getIdeas();
+    };
+
+    executeEffect();
   }, []);
 
   /**
@@ -25,7 +29,7 @@ function App() {
       /**
        * @TODO (Urgent) Do something with the error for production
        */
-      console.log(error);
+      throw error;
     }
   }
 
