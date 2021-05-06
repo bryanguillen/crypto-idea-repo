@@ -2,7 +2,7 @@
  * @description Entry script used for running web service.
  */
 
-require('dotenv');
+require('dotenv').config({ path: './src/.env' });
 const express = require('express');
 const fs = require('fs');
 const morgan = require('morgan');
