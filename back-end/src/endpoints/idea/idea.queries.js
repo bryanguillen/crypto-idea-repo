@@ -1,4 +1,4 @@
-const { getClient } = require('../../config/db');
+const { getClient, query } = require('../../config/db');
 const HashIds = require('hashids');
 
 /**
@@ -118,6 +118,22 @@ async function selectUser(email, client) {
   return queryResults.rows[0];
 }
 
+/**
+ * @description Function used to update the upvotes column for an idea
+ * @param {Number} ideaId
+ * @returns {}
+ */
+async function updateIdeaUpvotes(ideaId) {
+  const queryParameters = [ideaId];
+  
+  await query(`
+  UPDATE idea
+  SET upvotes = upvotes + 1
+  WHERE id = $1;
+  `, queryParameters);
+}
+
 module.exports = {
-  executeCreateIdeaTransaction
+  executeCreateIdeaTransaction,
+  updateIdeaUpvotes
 };
