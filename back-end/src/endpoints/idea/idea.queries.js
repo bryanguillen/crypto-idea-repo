@@ -155,8 +155,26 @@ async function updateIdeaUpvotes(ideaId) {
   `, queryParameters);
 }
 
+/**
+ * @description Function used to increment user referral count
+ * @param {String} userIdHash
+ * @returns {}
+ */
+async function updateUserReferralCount(userIdHash) {
+  const queryParameters = [
+    userIdHash
+  ];
+  
+  await query(`
+  UPDATE app_user
+  SET referral_visit_count = referral_visit_count + 1
+  WHERE id_hash = $1;
+  `, queryParameters);
+}
+
 module.exports = {
   executeCreateIdeaTransaction,
   selectIdeas,
-  updateIdeaUpvotes
+  updateIdeaUpvotes,
+  updateUserReferralCount
 };

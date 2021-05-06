@@ -1,5 +1,11 @@
 const { check } = require('express-validator');
-const { createIdea, handleValidationErrors, getIdeas, upvoteIdea } = require('./idea.middleware');
+const {
+  createIdea,
+  handleValidationErrors,
+  getIdeas,
+  incrementReferralCount,
+  upvoteIdea
+} = require('./idea.middleware');
 const router = require('express').Router();
 
 /**
@@ -31,6 +37,14 @@ router.post(
 router.put(
   '/ideas/:ideaId',
   upvoteIdea
+);
+
+/**
+ * @description Endpoint for updating referral count for a user
+ */
+router.put(
+  '/users',
+  incrementReferralCount
 );
 
 module.exports = router;

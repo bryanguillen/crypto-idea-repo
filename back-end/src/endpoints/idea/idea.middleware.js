@@ -1,7 +1,8 @@
 const {
   executeCreateIdeaTransaction,
   selectIdeas,
-  updateIdeaUpvotes
+  updateIdeaUpvotes,
+  updateUserReferralCount
 } = require('./idea.queries');
 const expressValidator = require('express-validator');
 
@@ -56,6 +57,19 @@ function handleValidationErrors(req, res, next) {
 }
 
 /**
+ * @description Function used to increment number of referrals for a user
+ */
+async function incrementReferralCount(req, res, next) {
+  try {
+    const { ref } = req.query;
+    await updateUserReferralCount(ref);
+    res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
+}
+
+/**
  * @description Middleware to handle upvoting idea
  */
 async function upvoteIdea(req, res, next) {
@@ -72,5 +86,6 @@ module.exports = {
   createIdea,
   getIdeas,
   handleValidationErrors,
+  incrementReferralCount,
   upvoteIdea
 };
