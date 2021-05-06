@@ -1,0 +1,30 @@
+.welcome-container {
+  border: 1px solid #282828;
+  border-radius: 10px;
+  justify-content: center;
+  padding: 10px;
+}
+
+.welcome-container-button {
+  height: 50px;
+  width: 120px;
+}
+
+.welcome-container-button-share {
+  background-color: #1DA1F2;
+  margin-left: 20px;
+}
+
+.welcome-container-button-start {
+  border: 1px solid #1DA1F2;
+  color: #1DA1F2;
+}
+
+.welcome-container-buttons-container {
+  margin-top: 10px;
+}
+
+.welcome-container,
+.welcome-container-button-start {
+  background-color: #000000;
+}
