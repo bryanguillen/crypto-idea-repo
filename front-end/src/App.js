@@ -18,7 +18,7 @@ function App() {
         }
       })
       .catch(() => {
-        setLoading(true);
+        setLoading(false);
       });
   }, []);
 
