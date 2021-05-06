@@ -16,6 +16,7 @@ button {
   border: 0;
   border-radius: .25rem;
   box-sizing: border-box;
+  color: #ffffff;
   cursor: pointer;
   min-width: 114px;
   padding: 5px;
