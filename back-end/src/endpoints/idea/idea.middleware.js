@@ -61,7 +61,7 @@ function handleValidationErrors(req, res, next) {
  */
 async function incrementReferralCount(req, res, next) {
   try {
-    const { ref } = req.query;
+    const { ref } = req.body;
     await updateUserReferralCount(ref);
     res.sendStatus(204);
   } catch (error) {

@@ -44,6 +44,10 @@ router.put(
  */
 router.put(
   '/users',
+  [
+    check('ref').isString()
+  ],
+  handleValidationErrors,
   incrementReferralCount
 );
 
