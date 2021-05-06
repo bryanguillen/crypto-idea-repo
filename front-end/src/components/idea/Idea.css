@@ -1,0 +1,19 @@
+.idea {
+  /**
+   * Next three styles are repeated in welcome
+   * container
+   */
+  background-color: #000000;
+  border: 1px solid #282828;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.idea-section {
+  margin-top: 20px;
+}
+
+.idea-section-text {
+  margin-top: 10px;
+}
