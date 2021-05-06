@@ -4,38 +4,76 @@ import axios from 'axios';
 function App() {
   const [ideas, setIdeas] = useState([]);
   const [lastIdeaSeen, setLastIdeaSeen] = useState('null');
+  const [loading, setLoading] = useState(true);
 
   /**
-   * @description Effect for interacting with the server
+   * @description Effect for loading ideas from the server
    */
   useEffect(() => {
-    const executeEffect = async () => {
-      await getIdeas();
-    };
-
-    executeEffect();
+    getIdeas(lastIdeaSeen)
+      .then(results => {
+        setIdeas(results);
+        if (loading) {
+          setLoading(false);
+        }
+      })
+      .catch(() => {
+        setLoading(true);
+      });
   }, []);
 
   /**
-   * @description Function used to encapsulate the code required to load ideas
+   * @description Effect for incrementing referral count on load
    */
-  async function getIdeas() {
-    try {
-      const response = await axios.get(`/ideas?lid=${lastIdeaSeen}`);
-      const { results } = response.data;
-      setIdeas(results);
-      console.log(results);
-    } catch (error) {
-      /**
-       * @TODO (Urgent) Do something with the error for production
-       */
-      throw error;
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const ref = queryParams.get('ref');
+
+    if (ref) {
+      incrementReferralCount(ref)
+        .catch(error => console.log(error));
     }
-  }
+  }, []);
 
   return (
     <div>Hello world</div>
   );
+}
+
+/**********************************************
+ * HELPERS
+ **********************************************/
+
+/**
+ * @description Function used to encapsulate the code required to load ideas
+ * @param {Number} lastIdeaSeen
+ */
+async function getIdeas(lastIdeaSeen) {
+  try {
+    const response = await axios.get(`/ideas?lid=${lastIdeaSeen}`);
+    const { results } = response.data;
+    return results;
+  } catch (error) {
+    /**
+     * @TODO (Urgent) Do something with the error for production
+     */
+    throw error;
+  }
+}
+
+/**
+ * @description Function used to increment referral count
+ * @param {String} userIdHash
+ */
+async function incrementReferralCount(userIdHash) {
+  try {
+    await axios.put('/users', { ref: userIdHash });
+  } catch (error) {
+    /**
+     * @TODO (Urgent) Do something with the error for production
+     */
+    throw error;
+  }
 }
 
 export default App;
