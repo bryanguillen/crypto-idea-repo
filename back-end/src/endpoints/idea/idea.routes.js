@@ -1,12 +1,20 @@
 const { check } = require('express-validator');
-const { createIdea, handleValidationErrors, upvoteIdea } = require('./idea.middleware');
+const { createIdea, handleValidationErrors, getIdeas, upvoteIdea } = require('./idea.middleware');
 const router = require('express').Router();
+
+/**
+ * @description Endpoint for getting ideas
+ */
+router.get(
+  '/ideas',
+  getIdeas
+);
 
 /**
  * @description Endpoint for creating an idea
  */
 router.post(
-  '/idea',
+  '/ideas',
   [
     check('email').isEmail(),
     check('title').isString(),
@@ -21,7 +29,7 @@ router.post(
  * @description Endpoint for upvoting an idea
  */
 router.put(
-  '/idea/:ideaId',
+  '/ideas/:ideaId',
   upvoteIdea
 );
 

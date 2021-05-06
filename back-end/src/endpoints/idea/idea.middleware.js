@@ -1,4 +1,8 @@
-const { executeCreateIdeaTransaction, updateIdeaUpvotes } = require('./idea.queries');
+const {
+  executeCreateIdeaTransaction,
+  selectIdeas,
+  updateIdeaUpvotes
+} = require('./idea.queries');
 const expressValidator = require('express-validator');
 
 /**
@@ -9,6 +13,25 @@ async function createIdea(req, res, next) {
     const { email, title, description, context } = req.body;
     const results = await executeCreateIdeaTransaction(email, title, description, context);
     res.status(201).json({ results });
+  } catch (error) {
+    next(error);
+  }
+}
+
+/**
+ * @description Middleware for getting ideas
+ */
+async function getIdeas(req, res, next) {
+  try {
+    // lid: last id for last idea seen; used for security and as a shortcut
+    const lidFromUrl = req.query.lid;
+    /**
+     * HACK: null is passed in on load, and it essentially tells
+     * the back-end to start from the newest/most recently added
+     * idea.
+     */
+    const lid = lidFromUrl === 'null' ? 1000000 : lidFromUrl;
+    res.json({ results: await selectIdeas(lid) });
   } catch (error) {
     next(error);
   }
@@ -47,6 +70,7 @@ async function upvoteIdea(req, res, next) {
 
 module.exports = {
   createIdea,
+  getIdeas,
   handleValidationErrors,
   upvoteIdea
 };

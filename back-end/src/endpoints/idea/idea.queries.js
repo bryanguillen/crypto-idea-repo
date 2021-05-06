@@ -1,5 +1,6 @@
 const { getClient, query } = require('../../config/db');
 const HashIds = require('hashids');
+const db = require('../../config/db');
 
 /**
  * @description Main transaction used for creating a new idea
@@ -88,6 +89,27 @@ async function insertUser(email, id, idHash, client) {
 }
 
 /**
+ * @description Function that executes the select ideas query;
+ * the function is programmed to return up to 10 at time,
+ * given the requirements at the time of implementation
+ * @param {Number} idForLastIdeaSeen
+ * @returns {Array}
+ */
+async function selectIdeas(idForLastIdeaSeen) {
+  const queryParameters = [
+    idForLastIdeaSeen
+  ];
+  const queryResults = await db.query(`
+  SELECT * FROM idea
+  WHERE id < $1
+  ORDER BY id DESC
+  LIMIT 10;
+  `, queryParameters);
+
+  return queryResults.rows;
+}
+
+/**
  * @description Function used to select the next id for a user
  * @param {Object} client
  * @returns {Number}
@@ -135,5 +157,6 @@ async function updateIdeaUpvotes(ideaId) {
 
 module.exports = {
   executeCreateIdeaTransaction,
+  selectIdeas,
   updateIdeaUpvotes
 };
