@@ -50,6 +50,35 @@ function App() {
   }, []);
 
   /**
+   * @description Handler for clicking upvote button
+   * @param {Number} ideaId
+   * @param {Boolean} upvote
+   */
+  async function handleUpvoteClick(ideaId, upvote) {
+    try {
+      const copyOfIdeas = [...ideas];
+      const ideaIndex = copyOfIdeas.findIndex(idea => idea.id === ideaId);
+      const ideaPreviousUpvotes = copyOfIdeas[ideaIndex].upvotes; 
+
+      copyOfIdeas[ideaIndex].upvoted = upvote;
+      copyOfIdeas[ideaIndex].upvotes = upvote ? ideaPreviousUpvotes + 1 : ideaPreviousUpvotes - 1;
+
+      if (upvote) {
+        await axios.put(`/ideas/${ideaId}/upvote`);
+      } else {
+        await axios.put(`/ideas/${ideaId}/downvote`);
+      }
+
+      setIdeas(copyOfIdeas);
+    } catch (error) {
+      /**
+       * @TODO (Urgent) Do something with the error for production
+       */
+      throw error;
+    }
+  }
+
+  /**
    * @description Wrapper for submitting new idea
    * @param {Object} values
    * @param {Object} otherFormState
@@ -91,6 +120,7 @@ function App() {
           openShareIdeaModal={() => setShareIdeaModalVisible(true)}
         />
         <Ideas
+          handleUpvoteClick={handleUpvoteClick}
           ideas={ideas}
         />
       </div> :
@@ -101,22 +131,6 @@ function App() {
 /**********************************************
  * HELPERS
  **********************************************/
-
-
-/**
- * @description Wrapper function used for down voting idea
- * @param {Number} ideaId
- */
-async function downvoteIdea(ideaId) {
-  try {
-    await axios.put(`/ideas/${ideaId}/downvote`);
-  } catch (error) {
-    /**
-     * @TODO (Urgent) Do something with the error for production
-     */
-    throw error;
-  }
-}
 
 /**
  * @description Function used to encapsulate the code required to load ideas
@@ -150,21 +164,6 @@ async function incrementReferralCount(userIdHash) {
   }
 }
 
-/**
- * @description Wrapper function used for upvoting an idea
- * @param {Number} ideaId
- */
-async function upvoteIdea(ideaId) {
-  try {
-    await axios.put(`/ideas/${ideaId}/upvote`);
-  } catch (error) {
-    /**
-     * @TODO (Urgent) Do something with the error for production
-     */
-    throw error;
-  }
-}
-
 /******************************
  * WRAPPER COMPONENTS
  ******************************/
@@ -181,11 +180,12 @@ function Ideas(props) {
         <Idea
           context={idea.context}
           description={idea.description}
-          downvoteIdea={() => downvoteIdea(idea.id)}
+          downvoteIdea={() => props.handleUpvoteClick(idea.id, false)}
           title={idea.title}
           key={idea.id}
-          upvoteIdea={() => upvoteIdea(idea.id)}
+          upvoteIdea={() => props.handleUpvoteClick(idea.id, true)}
           numUpvotes={idea.upvotes}
+          upvoted={idea.upvoted}
         />
       ))}
     </div>

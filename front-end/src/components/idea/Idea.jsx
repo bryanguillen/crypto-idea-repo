@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { IconContext } from 'react-icons';
 import { IoArrowUpCircleOutline } from 'react-icons/io5';
 
@@ -10,24 +9,18 @@ export default function Idea({
   title,
   upvoteIdea,
   downvoteIdea,
-  numUpvotes
+  numUpvotes,
+  upvoted
 }) {
-  const [upvotesCounter, setUpvotesCounter] = useState(numUpvotes);
-  const [upvoteIsActive, setUpvoteIsActive] = useState(false);
-
   /**
    * @description Function used to handle the click for upvote;
    * it is used to wrap the prop function passed in the changing of color
    */
   function handleUpvoteClick() {
-    if (!upvoteIsActive) {
+    if (!upvoted) {
       upvoteIdea();
-      setUpvoteIsActive(true);
-      setUpvotesCounter(previousState => previousState + 1);
     } else {
       downvoteIdea();
-      setUpvoteIsActive(false);
-      setUpvotesCounter(previousState => previousState - 1);
     }
   }
 
@@ -43,13 +36,13 @@ export default function Idea({
         <div className="idea-section-text">{context}</div>
       </div>
       <div className="idea-upvote-button-container">
-        <IconContext.Provider value={{ color: upvoteIsActive ? '#1DA1F2' : '#ffffff', size: '3rem' }}>
+        <IconContext.Provider value={{ color: upvoted ? '#1DA1F2' : '#ffffff', size: '3rem' }}>
           <IoArrowUpCircleOutline
             className="idea-upvote-button"
             onClick={handleUpvoteClick}
           />
         </IconContext.Provider>
-        <span className="idea-upvote-count">{upvotesCounter}</span>
+        <span className="idea-upvote-count">{numUpvotes}</span>
       </div>
     </div>
   );
