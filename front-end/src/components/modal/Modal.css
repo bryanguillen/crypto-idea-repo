@@ -29,7 +29,8 @@
 
 .modal-content-body-text,
 .modal-content-bullet-points,
-.modal-header {
+.modal-header,
+.modal-sub-header {
   margin-bottom: 10px;
 }
 
