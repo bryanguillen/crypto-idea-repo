@@ -27,6 +27,7 @@ function App() {
     getIdeas(lastIdeaSeen)
       .then(results => {
         setIdeas(results);
+        setLastIdeaSeen(results[results.length - 1].id);
         if (loading) {
           setLoading(false);
         }
