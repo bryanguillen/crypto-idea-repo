@@ -1,0 +1,36 @@
+.share-idea-modal-control {
+  background-color: #15181C;
+  border: 1px solid #282828;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+}
+
+.share-idea-modal-input {
+  height: 50px;
+}
+
+.share-idea-modal-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.share-idea-modal-row {
+  margin-bottom: 20px;
+}
+
+.share-idea-modal-row-button {
+  text-align: center;
+}
+
+.share-idea-modal-submit-button {
+  background-color: #1DA1F2;
+  height: 50px;
+  width: 100%;
+}
+
+.share-idea-modal-textarea {
+  height: 200px;
+  resize: none;
+}
