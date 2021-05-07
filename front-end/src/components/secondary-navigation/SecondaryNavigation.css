@@ -1,0 +1,16 @@
+.secondary-navigation-button {
+  border-radius: 50%;
+  display: block;
+  height: 50px;
+  min-width: 50px;
+  width: 50px;
+}
+
+.secondary-navigation-button-create-idea {
+  background-color: #1DA1F2;
+  margin-top: 10px;
+}
+
+.secondary-navigation-button-help {
+  background-color: #15181C;
+}
