@@ -9,6 +9,11 @@
   font-weight: bold;
 }
 
+.header-3-bold {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
 .ideas {
   margin-top: 30px;
 }
