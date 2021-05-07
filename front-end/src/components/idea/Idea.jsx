@@ -12,6 +12,7 @@ export default function Idea({
   downvoteIdea,
   numUpvotes
 }) {
+  const [upvotesCounter, setUpvotesCounter] = useState(numUpvotes);
   const [upvoteIsActive, setUpvoteIsActive] = useState(false);
 
   /**
@@ -22,9 +23,11 @@ export default function Idea({
     if (!upvoteIsActive) {
       upvoteIdea();
       setUpvoteIsActive(true);
+      setUpvotesCounter(previousState => previousState + 1);
     } else {
       downvoteIdea();
       setUpvoteIsActive(false);
+      setUpvotesCounter(previousState => previousState - 1);
     }
   }
 
@@ -46,7 +49,7 @@ export default function Idea({
             onClick={handleUpvoteClick}
           />
         </IconContext.Provider>
-        <span className="idea-upvote-count">{numUpvotes}</span>
+        <span className="idea-upvote-count">{upvotesCounter}</span>
       </div>
     </div>
   );
