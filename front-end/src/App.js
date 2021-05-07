@@ -15,6 +15,7 @@ function App() {
   const [lastIdeaSeen, setLastIdeaSeen] = useState('null');
   const [loading, setLoading] = useState(true);
   const [shareIdeaModalVisible, setShareIdeaModalVisible] = useState(false);
+  const [shareLink, setShareLink] = useState('');
 
   // Set App Element For All Modals
   ReactModal.setAppElement('#root');
@@ -48,6 +49,26 @@ function App() {
     }
   }, []);
 
+  /**
+   * @description Wrapper for submitting new idea
+   * @param {Object} values
+   * @param {Object} otherFormState
+   */
+  async function submitIdea(values, { setSubmitting }) {
+    try {
+      setSubmitting(true);
+      const { data } = await axios.post('/ideas', values);
+      setSubmitting(false);
+      setShareLink(`https://prequalie.com?ref=${data.results.user.idHash}`)
+    } catch (error) {
+      setSubmitting(false);
+      /**
+       * @TODO (Urgent) Do something with the error for production
+       */
+      throw error;
+    }
+  }
+
   return (
     !loading ?
       <div className="app">
@@ -56,8 +77,13 @@ function App() {
           isOpen={introModalVisible}
         />
         <ShareIdeaModal
-          closeModal={() => setShareIdeaModalVisible(false)}
+          closeModal={() => {
+            setShareIdeaModalVisible(false);
+            setShareLink(''); // once the modal closes, this will let the user resubmit form
+          }}
+          formSubmitted={shareLink !== ''}
           isOpen={shareIdeaModalVisible}
+          link={shareLink}
           onSubmit={submitIdea}
         />
         <WelcomeContainer
@@ -117,25 +143,6 @@ async function incrementReferralCount(userIdHash) {
   try {
     await axios.put('/users', { ref: userIdHash });
   } catch (error) {
-    /**
-     * @TODO (Urgent) Do something with the error for production
-     */
-    throw error;
-  }
-}
-
-/**
- * @description Wrapper for submitting new idea
- * @param {Object} values
- * @param {Object} otherFormState
- */
-async function submitIdea(values, { setSubmitting }) {
-  try {
-    setSubmitting(true);
-    await axios.post('/ideas', values);
-    setSubmitting(false);
-  } catch (error) {
-    setSubmitting(false);
     /**
      * @TODO (Urgent) Do something with the error for production
      */
