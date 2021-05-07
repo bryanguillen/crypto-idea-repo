@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { IoLogoTwitter, IoCopySharp } from 'react-icons/io5';
@@ -94,13 +95,26 @@ function ShareIdeaModalForm(props) {
  * @returns {Object}
  */
 function ShareIdeaPostSubmit(props) {
+  const inputRef = useRef(null);
+
+  /**
+   * @description Helper function for encapsulating the code that
+   * copies link to clipboard
+   */
+  function copyLinkToClipboard() {
+    console.log(inputRef.current);
+    inputRef.current.focus();
+    inputRef.current.select();
+    document.execCommand('copy');
+  }
+
   return (
     <div className="share-idea-post-submit-content">
       <div className="header-2-bold modal-header">Thanks!</div>
       <p className="modal-content-body-text">Thanks for helping build the future of crypto!</p>
       <div className="header-3-bold modal-sub-header">Link</div>
       <p className="modal-content-body-text">Now that you've shared an idea, here is the link you can share to earn you points and put you in the running to earn some crypto:</p>
-      <p className="modal-content-body-text">{props.link}</p>
+      <input className="share-link-text-input" readOnly ref={inputRef} value={props.link}/>
       <div className="header-3-bold modal-sub-header">Copy And Share The Link</div>
       <div className="share-link-buttons-container">
         <IconContext.Provider value={{ size: '3rem', color: '#1DA1F2' }}>
@@ -110,7 +124,7 @@ function ShareIdeaPostSubmit(props) {
             </div>
             <div className="share-link-button-text">Twitter</div>
           </div>
-          <div className="share-link-button share-link-button-second">
+          <div className="share-link-button share-link-button-second" onClick={() => copyLinkToClipboard()}>
             <div className="share-link-button-icon">
               <IoCopySharp/>
             </div>
