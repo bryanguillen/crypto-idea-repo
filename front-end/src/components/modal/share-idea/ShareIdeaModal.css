@@ -15,6 +15,10 @@
   width: 120px;
 }
 
+.share-link-button-text {
+  font: 1.8rem 'Roboto', sans-serif;
+}
+
 .share-link-buttons-container {
   display: flex;
 }
