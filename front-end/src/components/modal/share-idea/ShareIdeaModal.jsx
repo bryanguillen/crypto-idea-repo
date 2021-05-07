@@ -3,6 +3,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { IoLogoTwitter, IoCopySharp } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
+import { TwitterShareButton } from 'react-share';
 
 import Modal from '../Modal';
 import TextInput from '../../text-input/TextInput';
@@ -102,7 +103,6 @@ function ShareIdeaPostSubmit(props) {
    * copies link to clipboard
    */
   function copyLinkToClipboard() {
-    console.log(inputRef.current);
     inputRef.current.focus();
     inputRef.current.select();
     document.execCommand('copy');
@@ -118,18 +118,22 @@ function ShareIdeaPostSubmit(props) {
       <div className="header-3-bold modal-sub-header">Copy And Share The Link</div>
       <div className="share-link-buttons-container">
         <IconContext.Provider value={{ size: '3rem', color: '#1DA1F2' }}>
-          <div className="share-link-button">
-            <div className="share-link-button-icon">
+          <TwitterShareButton
+            className="share-link-button"
+            title="PreQualie - Share dApp Ideas"
+            url={props.link}
+          >
+            <span className="share-link-button-icon">
               <IoLogoTwitter/>
-            </div>
-            <div className="share-link-button-text">Twitter</div>
-          </div>
-          <div className="share-link-button share-link-button-second" onClick={() => copyLinkToClipboard()}>
-            <div className="share-link-button-icon">
+            </span>
+            <span className="share-link-button-text">Twitter</span>
+          </TwitterShareButton>
+          <button className="share-link-button share-link-button-second" onClick={() => copyLinkToClipboard()}>
+            <span className="share-link-button-icon">
               <IoCopySharp/>
-            </div>
-            <div className="share-link-button-text">Copy Link</div>
-          </div>
+            </span>
+            <span className="share-link-button-text">Copy Link</span>
+          </button>
         </IconContext.Provider>
       </div>
     </div>

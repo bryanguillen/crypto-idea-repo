@@ -9,7 +9,10 @@
 }
 
 .share-link-button {
-  width: 50px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  width: 120px;
 }
 
 .share-link-buttons-container {
