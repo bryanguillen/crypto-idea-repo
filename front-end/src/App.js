@@ -24,8 +24,9 @@ function App() {
    * @description Effect for loading ideas from the server
    */
   useEffect(() => {
-    getIdeas(lastIdeaSeen)
-      .then(results => {
+    axios.get(`/ideas?lid=${lastIdeaSeen}`)
+      .then(response => {
+        const { results } = response.data;
         setIdeas(results);
         setLastIdeaSeen(results[results.length - 1].id);
         if (loading) {
@@ -45,7 +46,7 @@ function App() {
     const ref = queryParams.get('ref');
 
     if (ref) {
-      incrementReferralCount(ref)
+      axios.put('/users', { ref })
         .catch(error => console.log(error));
     }
   }, []);
@@ -128,42 +129,6 @@ function App() {
       </div> :
       <div>loading...</div>
   );
-}
-
-/**********************************************
- * HELPERS
- **********************************************/
-
-/**
- * @description Function used to encapsulate the code required to load ideas
- * @param {Number} lastIdeaSeen
- */
-async function getIdeas(lastIdeaSeen) {
-  try {
-    const response = await axios.get(`/ideas?lid=${lastIdeaSeen}`);
-    const { results } = response.data;
-    return results;
-  } catch (error) {
-    /**
-     * @TODO (Urgent) Do something with the error for production
-     */
-    throw error;
-  }
-}
-
-/**
- * @description Function used to increment referral count
- * @param {String} userIdHash
- */
-async function incrementReferralCount(userIdHash) {
-  try {
-    await axios.put('/users', { ref: userIdHash });
-  } catch (error) {
-    /**
-     * @TODO (Urgent) Do something with the error for production
-     */
-    throw error;
-  }
 }
 
 /******************************
