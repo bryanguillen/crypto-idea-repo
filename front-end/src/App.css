@@ -21,3 +21,9 @@
 .ideas > div {
   margin-top: 10px;
 }
+
+.secondary-navigation {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}

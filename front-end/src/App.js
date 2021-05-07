@@ -4,6 +4,7 @@ import ReactModal from 'react-modal'
 
 import Idea from './components/idea/Idea';
 import IntroModal from './components/modal/intro-modal/IntroModal';
+import SecondaryNavigation from './components/secondary-navigation/SecondaryNavigation';
 import ShareIdeaModal from './components/modal/share-idea/ShareIdeaModal';
 import WelcomeContainer from './components/welcome-container/WelcomeContainer';
 
@@ -125,6 +126,10 @@ function App() {
   return (
     !loading ?
       <div className="app">
+        <SecondaryNavigation
+          openIntroModal={() => setIntroModalVisible(true)}
+          openCreateModal={() => setShareIdeaModalVisible(true)}
+        />
         <IntroModal
           closeModal={() => setIntroModalVisible(false)}
           isOpen={introModalVisible}
