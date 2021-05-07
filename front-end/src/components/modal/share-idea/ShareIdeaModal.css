@@ -7,3 +7,24 @@
   height: 50px;
   width: 100%;
 }
+
+.share-link-button {
+  width: 50px;
+}
+
+.share-link-buttons-container {
+  display: flex;
+}
+
+.share-link-button-icon {
+  cursor: pointer;
+}
+
+.share-link-button-second {
+  margin-left: 30px;
+}
+
+.share-link-button-icon,
+.share-link-button-text {
+  text-align: center;
+}
