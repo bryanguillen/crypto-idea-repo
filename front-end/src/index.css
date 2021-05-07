@@ -25,3 +25,7 @@ button {
 p {
   margin: 0;
 }
+
+::placeholder {
+  color: white;
+}
