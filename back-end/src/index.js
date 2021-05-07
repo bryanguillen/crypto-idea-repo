@@ -46,6 +46,21 @@ app.use(morgan('combined', { stream: accessLogStream }));
 // routes
 app.use(ideaRoutes);
 
+// Handle setup for production environment
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+  app.use(express.static('build'));
+  /**
+   * HACK: Notice the if-else pattern below.
+   * This get middleware is needed by react-router.
+   * Since it is a single pg app, we need to send
+   * the index.html for every request.
+   */
+  app.get('/*', function (req, res, next) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+}
+
 // catch all error handler
 app.use((error, req, res, next) => {
   res.status(error.status || 500).json({ error: error.message || 'Something went wrong!' });
