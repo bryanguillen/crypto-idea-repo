@@ -69,12 +69,16 @@ function ShareIdeaModalForm(props) {
             name={'description'}
             placeholder={'Example: App that processes crypto payments'}
             useTextArea={true}
+            useCharacterCount={true}
+            maxCount={250}
           />
           <TextInput
             name={'context'}
             label={'Why?  What problem would it solve for you?'}
             placeholder={'Example: It would allow me to use ETH tokens'}
             useTextArea={true}
+            useCharacterCount={true}
+            maxCount={250}
           />
           <TextInput
             label="Email"
