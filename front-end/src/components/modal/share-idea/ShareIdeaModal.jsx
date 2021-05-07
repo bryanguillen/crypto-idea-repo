@@ -1,4 +1,8 @@
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+
 import Modal from '../Modal';
+import TextInput from '../../text-input/TextInput';
 
 import './ShareIdeaModal.css';
 
@@ -14,27 +18,59 @@ export default function ShareIdeaModal(props) {
       closeModal={props.closeModal}
       isOpen={props.isOpen}
     >
-      <form>
-        <div className="share-idea-modal-row">
-          <label htmlFor="share-idea-modal-control-title" className="share-idea-modal-label">Title</label>
-          <input name="share-idea-modal-control-title" className="share-idea-modal-control share-idea-modal-input" id="share-idea-modal-control-title"/>
-        </div>
-        <div className="share-idea-modal-row">
-          <label htmlFor="share-idea-modal-control-description" className="share-idea-modal-label">What dApp would you like to see built?</label>
-          <textarea name="share-idea-modal-control-description" className="share-idea-modal-control share-idea-modal-textarea" id="share-idea-modal-control-description"></textarea>
-        </div>
-        <div className="share-idea-modal-row">
-          <label htmlFor="share-idea-modal-control-context" className="share-idea-modal-label">Why?</label>
-          <textarea name="share-idea-modal-control-context" className="share-idea-modal-control share-idea-modal-textarea" id="share-idea-modal-control-context"></textarea>
-        </div>
-        <div className="share-idea-modal-row">
-          <label htmlFor="share-idea-modal-control-email" className="share-idea-modal-label">Email</label>
-          <input name="share-idea-modal-control-email" className="share-idea-modal-control share-idea-modal-input" id="share-idea-modal-control-email"/>
-        </div>
-        <div className="share-idea-modal-row-button">
-          <button className="share-idea-modal-submit-button">Submit</button>
-        </div>
-      </form>
+      <Formik
+        initialValues={{
+          title: '',
+          description: '',
+          context: '',
+          email: ''
+        }}
+        validationSchema={Yup.object({
+          title: Yup.string()
+            .max(60, 'Can be no more than 60 characters')
+            .required('Required'),
+          description: Yup.string()
+            .max(250, 'Can be no more than 250 characters')
+            .required('Required'),
+          context: Yup.string()
+            .max(250, 'Can be no more than 250 characters')
+            .required('Required'),
+          email: Yup.string()
+            .email('Invalid email address')
+            .required('Required'),
+        })}
+        onSubmit={(values, { setSubmitting }) => {}}
+      >
+        {({ isSubmitting }) => (
+          <Form>
+            <TextInput
+              label={'Title'}
+              name={'title'}
+              placeholder={'Moneycake Swap'}
+            />
+            <TextInput
+              label={'What dApp would you like to see built and invest in?'}
+              name={'description'}
+              placeholder={'Example: App that processes crypto payments'}
+              useTextArea={true}
+            />
+            <TextInput
+              name={'context'}
+              label={'Why?  What problem would it solve for you?'}
+              placeholder={'Example: It would allow me to use ETH tokens'}
+              useTextArea={true}
+            />
+            <TextInput
+              label="Email"
+              name="email"
+              placeholder="hodler@hodler.com"
+            />
+            <div className="share-idea-modal-row-button">
+              <button className="share-idea-modal-submit-button">Submit</button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </Modal>
   );
 }
