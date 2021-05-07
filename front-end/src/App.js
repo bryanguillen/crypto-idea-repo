@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import ReactModal from 'react-modal'
 
+import CountdownContainer from './components/countdown-container/CountdownContainer';
 import Idea from './components/idea/Idea';
 import IntroModal from './components/modal/intro-modal/IntroModal';
 import SecondaryNavigation from './components/secondary-navigation/SecondaryNavigation';
@@ -148,6 +149,7 @@ function App() {
           openIntroModal={() => setIntroModalVisible(true)}
           openShareIdeaModal={() => setShareIdeaModalVisible(true)}
         />
+        <CountdownContainer/>
         <Ideas
           handleUpvoteClick={handleUpvoteClick}
           ideas={ideas}
