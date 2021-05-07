@@ -1,0 +1,36 @@
+.close-modal-button {
+  cursor: pointer;
+}
+
+.close-modal-button-container {
+  text-align: right;
+}
+
+.modal-content-body-text-bold {
+  font-weight: bold;
+}
+
+.modal-content-container li {
+  margin-bottom: 5px;
+}
+
+.modal-header {
+  text-align: center;
+}
+
+.ReactModal__Content.ReactModal__Content--after-open {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.modal-content-body-text,
+.modal-content-bullet-points,
+.modal-header {
+  margin-bottom: 10px;
+}
+
+@media only screen and (min-width: 950px) {
+  .ReactModal__Overlay.ReactModal__Overlay--after-open {
+    display: block;
+  }
+}
