@@ -100,7 +100,7 @@ async function selectIdeas(idForLastIdeaSeen) {
     idForLastIdeaSeen
   ];
   const queryResults = await db.query(`
-  SELECT description, context, title, id FROM idea
+  SELECT description, context, title, id, upvotes FROM idea
   WHERE id < $1
   ORDER BY id DESC
   LIMIT 10;
