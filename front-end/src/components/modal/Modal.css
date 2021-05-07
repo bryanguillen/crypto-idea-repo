@@ -10,6 +10,10 @@
   font-weight: bold;
 }
 
+.modal-content-container {
+  padding: 10px;
+}
+
 .modal-content-container li {
   margin-bottom: 5px;
 }
