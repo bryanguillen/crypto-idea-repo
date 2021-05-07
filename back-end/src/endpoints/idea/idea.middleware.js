@@ -20,6 +20,19 @@ async function createIdea(req, res, next) {
 }
 
 /**
+ * @description Middleware for downvoting idea
+ */
+async function downvoteIdea(req, res, next) {
+  try {
+    const { ideaId } = req.params;
+    await updateIdeaUpvotes(parseInt(ideaId), false);
+    res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
+}
+
+/**
  * @description Middleware for getting ideas
  */
 async function getIdeas(req, res, next) {
@@ -84,6 +97,7 @@ async function upvoteIdea(req, res, next) {
 
 module.exports = {
   createIdea,
+  downvoteIdea,
   getIdeas,
   handleValidationErrors,
   incrementReferralCount,

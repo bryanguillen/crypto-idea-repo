@@ -143,14 +143,15 @@ async function selectUser(email, client) {
 /**
  * @description Function used to update the upvotes column for an idea
  * @param {Number} ideaId
+ * @param {Boolean} increment
  * @returns {}
  */
-async function updateIdeaUpvotes(ideaId) {
+async function updateIdeaUpvotes(ideaId, increment = true) {
   const queryParameters = [ideaId];
   
   await query(`
   UPDATE idea
-  SET upvotes = upvotes + 1
+  SET upvotes = ${increment ? 'upvotes + 1' : 'upvotes - 1'}
   WHERE id = $1;
   `, queryParameters);
 }

@@ -1,6 +1,7 @@
 const { check } = require('express-validator');
 const {
   createIdea,
+  downvoteIdea,
   handleValidationErrors,
   getIdeas,
   incrementReferralCount,
@@ -35,8 +36,16 @@ router.post(
  * @description Endpoint for upvoting an idea
  */
 router.put(
-  '/ideas/:ideaId',
+  '/ideas/:ideaId/upvote',
   upvoteIdea
+);
+
+/**
+ * @description Endpoint for down voting an idea
+ */
+router.put(
+  '/ideas/:ideaId/downvote',
+  downvoteIdea
 );
 
 /**
