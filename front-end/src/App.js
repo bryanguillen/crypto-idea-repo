@@ -4,6 +4,7 @@ import ReactModal from 'react-modal'
 
 import Idea from './components/idea/Idea';
 import Modal from './components/modal/Modal';
+import ShareIdeaModal from './components/modal/share-idea/ShareIdeaModal';
 import WelcomeContainer from './components/welcome-container/WelcomeContainer';
 
 import './App.css';
@@ -13,6 +14,7 @@ function App() {
   const [introModalVisible, setIntroModalVisible] = useState(false);
   const [lastIdeaSeen, setLastIdeaSeen] = useState('null');
   const [loading, setLoading] = useState(true);
+  const [shareIdeaModalVisible, setShareIdeaModalVisible] = useState(false);
 
   // Set App Element For All Modals
   ReactModal.setAppElement('#root');
@@ -53,8 +55,13 @@ function App() {
           closeModal={() => setIntroModalVisible(false)}
           isOpen={introModalVisible}
         />
+        <ShareIdeaModal
+          closeModal={() => setShareIdeaModalVisible(false)}
+          isOpen={shareIdeaModalVisible}
+        />
         <WelcomeContainer
           openIntroModal={() => setIntroModalVisible(true)}
+          openShareIdeaModal={() => setShareIdeaModalVisible(true)}
         />
         <Ideas
           ideas={ideas}
