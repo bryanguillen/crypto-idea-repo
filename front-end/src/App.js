@@ -88,7 +88,8 @@ function App() {
       setSubmitting(true);
       const { data } = await axios.post('/ideas', values);
       setSubmitting(false);
-      setShareLink(`https://prequalie.com?ref=${data.results.user.idHash}`)
+      setShareLink(`https://prequalie.com?ref=${data.results.user.idHash}`);
+      setIdeas(previousState => [data.results.idea, ...previousState]);
     } catch (error) {
       setSubmitting(false);
       /**
