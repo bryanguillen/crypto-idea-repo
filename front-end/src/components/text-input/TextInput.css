@@ -8,6 +8,11 @@
   width: 100%;
 }
 
+.form-control-character-count {
+  margin-top: 10px;
+  text-align: right;
+}
+
 .text-area {
   height: 200px;
   resize: none;

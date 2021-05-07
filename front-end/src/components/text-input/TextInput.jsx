@@ -7,7 +7,7 @@ import './TextInput.css';
  * @param {Object} props
  * @returns {Object}
  */
-export default function TextInput({ label, useTextArea, className, ...props }) {
+export default function TextInput({ label, useTextArea, useCharacterCount, maxCount, className, ...props }) {
   const [field, meta] = useField(props);
   return (
     <div className={`text-input-container text-input-container-${props.id || props.name}`}>
@@ -18,6 +18,11 @@ export default function TextInput({ label, useTextArea, className, ...props }) {
       {useTextArea ?
         <textarea className="form-control text-area" {...field} {...props} /> :
         <input className="form-control text-input" {...field} {...props} />
+      }
+      {
+        useCharacterCount ?
+          <div className="form-control-character-count">{-(field.value.length - maxCount)} / {maxCount}</div> :
+          null
       }
     </div>
   );
