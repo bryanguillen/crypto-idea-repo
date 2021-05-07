@@ -8,7 +8,8 @@ export default function Idea({
   context,
   description,
   title,
-  upvoteIdea
+  upvoteIdea,
+  downvoteIdea
 }) {
   const [upvoteIsActive, setUpvoteIsActive] = useState(false);
 
@@ -17,8 +18,13 @@ export default function Idea({
    * it is used to wrap the prop function passed in the changing of color
    */
   function handleUpvoteClick() {
-    upvoteIdea();
-    setUpvoteIsActive(true);
+    if (!upvoteIsActive) {
+      upvoteIdea();
+      setUpvoteIsActive(true);
+    } else {
+      downvoteIdea();
+      setUpvoteIsActive(false);
+    }
   }
 
   return (
