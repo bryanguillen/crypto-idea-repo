@@ -31,7 +31,8 @@ function App() {
    * @description Effect for loading ideas from the server
    */
   useEffect(() => {
-    axios.get(`/ideas?lid=${lastIdeaSeen}`)
+    axios
+      .get(`/ideas?lid=${lastIdeaSeen}`)
       .then(response => {
         const { results } = response.data;
         setIdeas(previousState => [...previousState, ...results]);
@@ -54,7 +55,8 @@ function App() {
     const ref = queryParams.get('ref');
 
     if (ref) {
-      axios.put('/users', { ref })
+      axios
+        .put('/users', { ref })
         .catch(error => console.log(error));
     }
   }, []);
