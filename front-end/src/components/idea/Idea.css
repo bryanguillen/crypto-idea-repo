@@ -10,14 +10,19 @@
   padding: 10px;
 }
 
-.idea-section {
-  margin-top: 20px;
-}
-
 .idea-section-header {
   font-weight: bold;
 }
 
 .idea-section-text {
   margin-top: 10px;
+}
+
+.idea-upvote-button {
+  cursor: pointer;
+}
+
+.idea-section,
+.idea-upvote-button-container {
+  margin-top: 20px;
 }
