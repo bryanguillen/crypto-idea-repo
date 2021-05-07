@@ -54,6 +54,22 @@ function App() {
  * HELPERS
  **********************************************/
 
+
+/**
+ * @description Wrapper function used for down voting idea
+ * @param {Number} ideaId
+ */
+async function downvoteIdea(ideaId) {
+  try {
+    await axios.put(`/ideas/${ideaId}/downvote`);
+  } catch (error) {
+    /**
+     * @TODO (Urgent) Do something with the error for production
+     */
+    throw error;
+  }
+}
+
 /**
  * @description Function used to encapsulate the code required to load ideas
  * @param {Number} lastIdeaSeen
@@ -92,7 +108,7 @@ async function incrementReferralCount(userIdHash) {
  */
 async function upvoteIdea(ideaId) {
   try {
-    await axios.put(`/ideas/${ideaId}`);
+    await axios.put(`/ideas/${ideaId}/upvote`);
   } catch (error) {
     /**
      * @TODO (Urgent) Do something with the error for production
@@ -117,6 +133,7 @@ function Ideas(props) {
         <Idea
           context={idea.context}
           description={idea.description}
+          downvoteIdea={() => downvoteIdea(idea.id)}
           title={idea.title}
           key={idea.id}
           upvoteIdea={() => upvoteIdea(idea.id)}
