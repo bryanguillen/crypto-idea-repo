@@ -9,7 +9,8 @@ export default function Idea({
   description,
   title,
   upvoteIdea,
-  downvoteIdea
+  downvoteIdea,
+  numUpvotes
 }) {
   const [upvoteIsActive, setUpvoteIsActive] = useState(false);
 
@@ -45,6 +46,7 @@ export default function Idea({
             onClick={handleUpvoteClick}
           />
         </IconContext.Provider>
+        <span className="idea-upvote-count">{numUpvotes}</span>
       </div>
     </div>
   );

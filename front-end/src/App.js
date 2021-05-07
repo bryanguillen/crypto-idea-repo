@@ -137,6 +137,7 @@ function Ideas(props) {
           title={idea.title}
           key={idea.id}
           upvoteIdea={() => upvoteIdea(idea.id)}
+          numUpvotes={idea.upvotes}
         />
       ))}
     </div>

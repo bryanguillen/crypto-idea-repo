@@ -22,6 +22,16 @@
   cursor: pointer;
 }
 
+.idea-upvote-button-container {
+  align-content: center;
+  display: flex;
+}
+
+.idea-upvote-count {
+  line-height: 30px;
+  margin-left: 5px;
+}
+
 .idea-section,
 .idea-upvote-button-container {
   margin-top: 20px;
