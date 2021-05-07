@@ -86,6 +86,21 @@ async function incrementReferralCount(userIdHash) {
   }
 }
 
+/**
+ * @description Wrapper function used for upvoting an idea
+ * @param {Number} ideaId
+ */
+async function upvoteIdea(ideaId) {
+  try {
+    await axios.put(`/ideas/${ideaId}`);
+  } catch (error) {
+    /**
+     * @TODO (Urgent) Do something with the error for production
+     */
+    throw error;
+  }
+}
+
 /******************************
  * WRAPPER COMPONENTS
  ******************************/
@@ -104,6 +119,7 @@ function Ideas(props) {
           description={idea.description}
           title={idea.title}
           key={idea.id}
+          upvoteIdea={() => upvoteIdea(idea.id)}
         />
       ))}
     </div>
