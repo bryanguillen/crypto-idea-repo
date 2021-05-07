@@ -58,6 +58,7 @@ function App() {
         <ShareIdeaModal
           closeModal={() => setShareIdeaModalVisible(false)}
           isOpen={shareIdeaModalVisible}
+          onSubmit={submitIdea}
         />
         <WelcomeContainer
           openIntroModal={() => setIntroModalVisible(true)}
@@ -116,6 +117,25 @@ async function incrementReferralCount(userIdHash) {
   try {
     await axios.put('/users', { ref: userIdHash });
   } catch (error) {
+    /**
+     * @TODO (Urgent) Do something with the error for production
+     */
+    throw error;
+  }
+}
+
+/**
+ * @description Wrapper for submitting new idea
+ * @param {Object} values
+ * @param {Object} otherFormState
+ */
+async function submitIdea(values, { setSubmitting }) {
+  try {
+    setSubmitting(true);
+    await axios.post('/ideas', values);
+    setSubmitting(false);
+  } catch (error) {
+    setSubmitting(false);
     /**
      * @TODO (Urgent) Do something with the error for production
      */

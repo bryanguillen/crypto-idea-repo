@@ -39,7 +39,7 @@ export default function ShareIdeaModal(props) {
             .email('Invalid email address')
             .required('Required'),
         })}
-        onSubmit={(values, { setSubmitting }) => {}}
+        onSubmit={props.onSubmit}
       >
         {({ isSubmitting }) => (
           <Form>
@@ -66,7 +66,7 @@ export default function ShareIdeaModal(props) {
               placeholder="hodler@hodler.com"
             />
             <div className="share-idea-modal-row-button">
-              <button className="share-idea-modal-submit-button">Submit</button>
+              <button className="share-idea-modal-submit-button">{isSubmitting ? 'Submitting...' : 'Submit'}</button>
             </div>
           </Form>
         )}
