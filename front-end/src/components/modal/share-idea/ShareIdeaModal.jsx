@@ -60,6 +60,7 @@ function ShareIdeaModalForm(props) {
       {({ isSubmitting }) => (
         <Form>
           <TextInput
+            caption={'(name for idea; don\'t put too much thought into it, have fun)'}
             label={'Title'}
             name={'title'}
             placeholder={'Moneycake Swap'}
@@ -81,6 +82,7 @@ function ShareIdeaModalForm(props) {
             maxCount={250}
           />
           <TextInput
+            caption={'(to send you crypto if you win giveaway)'}
             label="Email"
             name="email"
             placeholder="hodler@hodler.com"
