@@ -2,12 +2,13 @@
  * @description Entry script used for running web service.
  */
 
-require('dotenv').config({ path: './src/.env' });
 const express = require('express');
 const fs = require('fs');
 const morgan = require('morgan');
 const path = require('path');
 const helmet = require('helmet');
+
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const ideaRoutes = require('./endpoints/idea/idea.routes');
 
