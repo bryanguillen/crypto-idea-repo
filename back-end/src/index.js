@@ -49,7 +49,7 @@ app.use(ideaRoutes);
 // Handle setup for production environment
 if (process.env.NODE_ENV === 'production') {
   app.set('trust proxy', 1);
-  app.use('/static', express.static('build'));
+  app.use('/static', express.static(path.join(__dirname, 'build')));
   /**
    * HACK: Notice the if-else pattern below.
    * This get middleware is needed by react-router.
