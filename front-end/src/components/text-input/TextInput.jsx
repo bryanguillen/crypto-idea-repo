@@ -7,11 +7,11 @@ import './TextInput.css';
  * @param {Object} props
  * @returns {Object}
  */
-export default function TextInput({ label, useTextArea, useCharacterCount, maxCount, className, ...props }) {
+export default function TextInput({ label, useTextArea, useCharacterCount, maxCount, caption, className, ...props }) {
   const [field, meta] = useField(props);
   return (
     <div className={`text-input-container text-input-container-${props.id || props.name}`}>
-      <label className="text-input-label" htmlFor={props.id || props.name}>{label}</label>
+      <label className="text-input-label" htmlFor={props.id || props.name}>{label} {caption ? <span className="text-input-caption">{caption}</span> : null}</label>
       {meta.touched && meta.error ? (
         <div className="text-input-error">{meta.error}</div>
       ) : null}
